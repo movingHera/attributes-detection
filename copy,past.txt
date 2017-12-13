@@ -1,0 +1,1 @@
+python test.py -i test.jpg -c 3

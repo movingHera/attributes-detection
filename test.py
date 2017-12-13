@@ -3,16 +3,21 @@ import matplotlib.pyplot as plt
 import argparse
 import utils
 import cv2
-
+from PIL import Image
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--image", required = True, help = "Path to the image")
 ap.add_argument("-c", "--clusters", required = True, type = int, help = "# of clusters")
 args = vars(ap.parse_args())
 
+im = Image.open(args["image"])
+im.resize((150, 150), Image.ANTIALIAS).save('image.png', "PNG")
 
-image = cv2.imread(args["image"])
+image = cv2.imread('image.png')
 image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+background = cv2.imread("background.png")
+background = cv2.cvtColor(background, cv2.COLOR_BGR2RGB)
+image = image - background
 
 
 plt.figure()
